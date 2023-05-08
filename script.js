@@ -27,15 +27,15 @@ function setup() {
                 grassArr.push(gr)
             }
             else if (matrix[y][x] == 2) {
-                let grassEater = new GrassEater(x, y, 2)
-                grassEatArr.push(grassEater)
+                let grassE= new GrassEater(x, y, 2)
+                grassEatArr.push(grassE)
             }
             else if (matrix[y][x] == 3) {
                 let predatorObj = new Predator(x, y, 3)
                 predatorArr.push(predatorObj)
             }
             else if (matrix[y][x] == 4) {
-                let predatorEaterObj = new PredatorEater(x, y, 4)
+                let predatorEaterObj = new Predator(x, y, 4)
                 predatorEaterArr.push(predatorEaterObj)
             }
             else if (matrix[y][x] == 4) {
@@ -45,7 +45,7 @@ function setup() {
 
         }
     }
-    //console.log(grassArr)
+ 
 }
 
 function draw() {
@@ -87,12 +87,5 @@ function draw() {
     for (let i in predatorBlueArr) {
         predatorBlueArr[i].eat()
     }
-
-    //   for (let i in grassEatArr) {
-    //     grassEatArr[i].move()
-    //   }
-    //   for (let i in grassEatArr) {
-    //     grassEatArr[i].die()
-    //   }
 
 }

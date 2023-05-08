@@ -1,20 +1,5 @@
-class Predator {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ]
-        this.countEating = 0
-    }
-    getNewCoordinates() {
+class Predator extends LivingCreature {
+getNewCoordinates() {
         [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
             [this.x + 1, this.y - 1],
@@ -23,23 +8,16 @@ class Predator {
             [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
-
+    
     }
-    chooseCell(character) {
-        this.getNewCoordinates
-        let found = []
-        for (let i in this.directions) {
-            let x = this.directions[i][0]
-            let y = this.directions[i][1]
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i])
-                }
-            }
+ 
+    chooseCell(ch) {
+
+        this.getNewCoordinates();
+        
+        return super.chooseCell(ch);
+        
         }
-        return found
-    }
-
 
     eat() {
            let grassesN = this.chooseCell(1)
