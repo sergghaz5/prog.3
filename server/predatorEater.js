@@ -1,4 +1,5 @@
-class PredatorEater extends LivingCreature {
+LivingCreature = require("./leavingcreature.js")
+module.exports = class PredatorEater extends LivingCreature {
 
     getNewCoordinates() {
         [this.x - 1, this.y - 1],
