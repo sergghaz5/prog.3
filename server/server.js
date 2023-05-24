@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 app.use(express.static("../client"));
 app.get("/", function (req, res) {
-  res.redirect("index.html");
+  res.redirect("../client/index.html");
 });
 
 var server = require('http').createServer(app);
@@ -16,7 +16,9 @@ var GrassEater = require("./grassEater")
 var predatorBlue = require("./predatorBlue")
 var Predator = require("./Predator")
 var predatorEater = require("./predatorEater")
-// var { generateMatrix } = require("./functions")
+
+let sideX = 30
+let sideY =  30
 matrix = []
 grassArr = []
 grassEaterArr = []
@@ -24,20 +26,49 @@ predatorArr = []
 predatorBlueArr = []
 predatorEaterArr = []
 
+function random(min, max) {
+  if (min === undefined && max === undefined) {
+    return Math.random();
+  } else if (max === undefined) {
+    max = min;
+    min = 0;
+  }
+  return Math.random() * (max - min) + min;
+}
 
-io.on('connection', function (socket) {
-  socket.emit("matrix", matrix)
-});
+function generateMatrix() {
+  function character(quantity, char) {
+    let initialNumber = 0;
+    while (initialNumber < quantity) {
+      let x = Math.floor(random(0, sideX));
+      let y = Math.floor(random(0, sideY));
+      console.log(x,y)
+      if (matrix[y][x] == 0) {
+        matrix[y][x] = char;
+      }
+      initialNumber++;
+    }
+  }
+  for (let i = 0; i < sideX; i++) {
+    matrix.push([]);
+    for (let j = 0; j < sideY; j++) {
+      matrix[i].push(0);
+    }
+  }
+  character(1, 1);
+  character(1, 2);
+  character(1, 3);
+  character(1, 4);
+}
 
 generateMatrix()
-createObject()
-// generateMatrix()
-console.log(matrix)
-io.sockets.emit("matrix", matrix)
 
-var gr = new Grass(1, 2, 1);
-var emptyCells = gr.chooseCell(0);
-console.log(emptyCells);
+ io.on('connection', function (socket) {
+    socket.emit("matrix", matrix)
+  });
+// var gr = new Grass(1, 2, 1);
+// var emptyCells = gr.chooseCell(0);
+// console.log(emptyCells);
 
 function createObject() {
   for (let y = 0; y < matrix.length; y++) {
@@ -66,14 +97,14 @@ function createObject() {
     }
   }
 }
-
+createObject()
 
 function game() {
   for (let i in grassArr) {
     grassArr[i].mul()
   }
-  for (let i in grassEatArr) {
-    grassEatArr[i].eat()
+  for (let i in grassEaterArr) {
+    grassEaterArr[i].eat()
   }
 
   for (let i in predatorArr) {
@@ -86,10 +117,8 @@ function game() {
   for (let i in predatorBlueArr) {
     predatorBlueArr[i].eat()
   }
-  io.sockets.emit("matrix", matrix)
+  io.emit("matrix", matrix)
+  return matrix
 }
-
-
-
 
 setInterval(game, 2000)

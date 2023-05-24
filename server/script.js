@@ -1,5 +1,5 @@
 let matrix = [];
-let side = 20;
+let side = 30;
 let grassArr = []
 let grassEatArr = []
 let predatorArr = []

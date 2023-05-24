@@ -6,7 +6,10 @@ function setup() {
     createCanvas(400,400);
     background('#acacac');
 }
-socket.on("matrix",my_draw);
+socket.on("matrix",function (data) {
+    console.log(data)
+    my_draw(data)
+});
 function m(a){
     console.log(a);
 }
