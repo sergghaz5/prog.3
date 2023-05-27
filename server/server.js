@@ -79,7 +79,7 @@ function createObject() {
       }
       else if (matrix[y][x] == 2) {
         let grassE = new GrassEater(x, y, 2)
-        grassEatArr.push(grassE)
+        grassEaterArr.push(grassE)
       }
       else if (matrix[y][x] == 3) {
         let predatorObj = new Predator(x, y, 3)
@@ -89,7 +89,7 @@ function createObject() {
         let predatorEaterObj = new Predator(x, y, 4)
         predatorEaterArr.push(predatorEaterObj)
       }
-      else if (matrix[y][x] == 4) {
+      else if (matrix[y][x] == 5) {
         let predatorBlueObj = new predatorBlue(x, y, 5)
         predatorBlueArr.push(predatorBlueObj)
       }
@@ -121,4 +121,5 @@ function game() {
   return matrix
 }
 
-setInterval(game, 2000)
+
+setInterval(game, 100)

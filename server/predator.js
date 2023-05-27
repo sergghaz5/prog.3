@@ -24,7 +24,7 @@ getNewCoordinates() {
            let grassesN = this.chooseCell(1)
         let grassEaterN = this.chooseCell(2)
          let all = grassesN.concat(grassEaterN)
-        let oneP = random(all)
+        let oneP = all[Math.floor(Math.random)*all.length]
         if (oneP) {
             this.countEating++;
             matrix[this.y][this.x] = 0
@@ -80,7 +80,7 @@ getNewCoordinates() {
 
     move() {
         let emptyCells = this.chooseCell(0)
-        let newCell = random(emptyCells)
+        let newCell = emptyCells[Math.floor(Math.random)*emptyCells.length]
 
         if (newCell) {
             let newX = newCell[0]

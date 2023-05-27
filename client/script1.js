@@ -3,7 +3,7 @@ var socket=io()
 function setup() {
 
     frameRate(60);
-    createCanvas(400,400);
+    createCanvas(900,900);
     background('#acacac');
 }
 socket.on("matrix",function (data) {
@@ -16,7 +16,7 @@ function m(a){
 
 function my_draw(matrix) {
 
-
+console.log(matrix);
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
@@ -33,15 +33,13 @@ function my_draw(matrix) {
             else if (matrix[y][x] == 3) {
                 fill("red");
             }
-            else if (matrix[y][x] == 4) {
+            else if (matrix[y][x] == 4) {   
                 fill("black");
             }
             else if (matrix[y][x] == 5) {
-                fill("lime");
+                fill("blue");
             }
-            // else if (matrix[y][x] == 6) {
-            //     fill("blue");
-            // }
+          
             rect(x * 50, y * 50, 50, 50);
 
 
