@@ -1,6 +1,6 @@
 LivingCreature = require("./leavingcreature.js")
 module.exports = class Predator extends LivingCreature {
-getNewCoordinates() {
+    getNewCoordinates() {
         [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
             [this.x + 1, this.y - 1],
@@ -9,32 +9,32 @@ getNewCoordinates() {
             [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
-    
+
     }
- 
+
     chooseCell(ch) {
 
         this.getNewCoordinates();
-        
+
         return super.chooseCell(ch);
-        
-        }
+
+    }
 
     eat() {
-           let grassesN = this.chooseCell(1)
+        let grassesN = this.chooseCell(1)
         let grassEaterN = this.chooseCell(2)
-         let all = grassesN.concat(grassEaterN)
-        let oneP = all[Math.floor(Math.random)*all.length]
+        let all = grassesN.concat(grassEaterN)
+        let oneP = all[Math.floor(Math.random) * all.length]
         if (oneP) {
             this.countEating++;
             matrix[this.y][this.x] = 0
-            matrix[oneP[1][oneP[0]]] = 3
-            this.x = oneP[1]
+            matrix[oneP[1]][oneP[0]] = 3
+            this.y = oneP[1]
             this.x = oneP[0]
 
             for (let i in grassEatArr) {
-                if (this.x == grassEatArr[i].x && this.y == grassEatArr[i].y) {
-                    grassEatArr.splice(i, 1)
+                if (this.x == grassEaterArr[i].x && this.y == grassEaterArr[i].y) {
+                    grassEaterArr.splice(i, 1)
                     break;
                 }
             }
@@ -44,13 +44,13 @@ getNewCoordinates() {
                     break;
                 }
             }
-            if (this.countEating == 20) {
+            if (this.countEating == 30) {
                 this.mul()
             }
         }
         else {
             this.move()
-            if (this.countEating > 50) {
+            if (this.countEating > 100) {
                 console.log("died")
                 this.die()
             }
@@ -80,7 +80,7 @@ getNewCoordinates() {
 
     move() {
         let emptyCells = this.chooseCell(0)
-        let newCell = emptyCells[Math.floor(Math.random)*emptyCells.length]
+        let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
         if (newCell) {
             let newX = newCell[0]
@@ -93,4 +93,5 @@ getNewCoordinates() {
     }
 
 
-}
+    }
+ 

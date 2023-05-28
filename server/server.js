@@ -15,7 +15,7 @@ var Grass = require("./grass")
 var GrassEater = require("./grassEater")
 var predatorBlue = require("./predatorBlue")
 var Predator = require("./Predator")
-var predatorEater = require("./predatorEater")
+const PredatorEater = require("./predatorEater");
 
 let sideX = 30
 let sideY =  30
@@ -42,7 +42,7 @@ function generateMatrix() {
     while (initialNumber < quantity) {
       let x = Math.floor(random(0, sideX));
       let y = Math.floor(random(0, sideY));
-      console.log(x,y)
+      // console.log(x,y)
       if (matrix[y][x] == 0) {
         matrix[y][x] = char;
       }
@@ -55,10 +55,11 @@ function generateMatrix() {
       matrix[i].push(0);
     }
   }
-  character(1, 1);
-  character(1, 2);
-  character(1, 3);
-  character(1, 4);
+  character(2, 1);
+  character(15, 2);
+  character(10, 3);
+  character(4, 4);
+  character(5, 5);
 }
 
 generateMatrix()
@@ -86,7 +87,7 @@ function createObject() {
         predatorArr.push(predatorObj)
       }
       else if (matrix[y][x] == 4) {
-        let predatorEaterObj = new Predator(x, y, 4)
+        let predatorEaterObj = new PredatorEater(x, y, 4)
         predatorEaterArr.push(predatorEaterObj)
       }
       else if (matrix[y][x] == 5) {

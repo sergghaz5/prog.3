@@ -1,17 +1,17 @@
 var socket=io()
-
+let side = 20
 function setup() {
 
-    frameRate(60);
-    createCanvas(900,900);
+
+    createCanvas(30 * side,30*side );
     background('#acacac');
 }
 socket.on("matrix",function (data) {
-    console.log(data)
+    // console.log(data)
     my_draw(data)
 });
 function m(a){
-    console.log(a);
+    // console.log(a);
 }
 
 function my_draw(matrix) {
@@ -40,11 +40,8 @@ console.log(matrix);
                 fill("blue");
             }
           
-            rect(x * 50, y * 50, 50, 50);
+            rect(x *side , y * side, 50, 50);
 
-
-            // fill("blue")
-            // text(x + " " + y, x * side + side / 2, y * side + side / 2)
 
         }
     }

@@ -21,7 +21,7 @@ module.exports = class PredatorEater extends LivingCreature {
         }
     eat() {
         let foods = this.chooseCell(1)
-        let food = random(foods)
+        let food = foods[Math.floor(Math.random() * foods.length)]
         if (food) {
             this.energy++
             matrix[this.y][this.x] = 0
@@ -67,7 +67,7 @@ module.exports = class PredatorEater extends LivingCreature {
 
     move() {
         let emptyCells = this.chooseCell(0)
-        let newCell = random(emptyCells)
+        let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
         if (newCell) {
             let newX = newCell[0]
