@@ -11,12 +11,28 @@ module.exports = class Predator extends LivingCreature {
             [this.x + 1, this.y + 1]
 
     }
-
     chooseCell(ch) {
+        this.getNewCoordinates();
+        return super.chooseCell(ch);
+    }
+
+    chooseCellBarev(ch) {
 
         this.getNewCoordinates();
 
-        return super.chooseCell(ch);
+        var found = [];
+        for (var i in this.directions) {
+            var x = this.directions[i][0];
+            var y = this.directions[i][1];
+            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+                if (ch.includes(matrix[y][x])){// if (matrix[y][x] == ch) {
+                    found.push(this.directions[i]);
+                }
+            }
+        }
+        return found;
+        
+        // return super.chooseCell(ch);
 
     }
 
@@ -32,7 +48,7 @@ module.exports = class Predator extends LivingCreature {
             this.y = oneP[1]
             this.x = oneP[0]
 
-            for (let i in grassEatArr) {
+            for (let i in grassEaterArr) {
                 if (this.x == grassEaterArr[i].x && this.y == grassEaterArr[i].y) {
                     grassEaterArr.splice(i, 1)
                     break;
@@ -79,7 +95,7 @@ module.exports = class Predator extends LivingCreature {
     }
 
     move() {
-        let emptyCells = this.chooseCell(0)
+        let emptyCells = this.chooseCellBarev([0, 1])
         let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
         if (newCell) {
@@ -89,6 +105,12 @@ module.exports = class Predator extends LivingCreature {
             matrix[newY][newX] = 3
             this.x = newX
             this.y = newY
+            for (var i in grassEaterArr) {
+                if (this.x == grassEaterArr[i].x && this.y == grassEaterArr[i].y) {
+                    grassEaterArr.splice(i, 1)
+                    break;
+                }
+            }
         }
     }
 
