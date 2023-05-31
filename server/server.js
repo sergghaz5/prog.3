@@ -55,12 +55,13 @@ function generateMatrix() {
       matrix[i].push(0);
     }
   }
-  character(2, 1);
+  character(40, 1);
   character(15, 2);
-  character(10, 3);
-  character(4, 4);
-  character(5, 5);
+  character(20, 3);
+  character(20, 4);
+  character(20, 5);
 }
+
 
 generateMatrix()
 
@@ -100,6 +101,7 @@ function createObject() {
 }
 createObject()
 
+
 function game() {
   for (let i in grassArr) {
     grassArr[i].mul()
@@ -118,7 +120,11 @@ function game() {
   for (let i in predatorBlueArr) {
     predatorBlueArr[i].eat()
   }
-  io.emit("matrix", matrix)
+  console.log(grassArr.length);
+  console.log(grassEaterArr.length);
+  // console.log(predatorArr.length);
+  
+    io.emit("matrix", matrix)
   return matrix
 }
 

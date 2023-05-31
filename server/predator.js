@@ -1,7 +1,16 @@
 LivingCreature = require("./leavingcreature.js")
 module.exports = class Predator extends LivingCreature {
+
+    constructor(x, y) {
+        super()
+        this.energy = 30;
+        this.x = x
+        this.y = y
+    }
+
     getNewCoordinates() {
-        [this.x - 1, this.y - 1],
+        this.directions = [
+            [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
             [this.x + 1, this.y - 1],
             [this.x - 1, this.y],
@@ -9,8 +18,10 @@ module.exports = class Predator extends LivingCreature {
             [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
+          ]
 
     }
+
     chooseCell(ch) {
         this.getNewCoordinates();
         return super.chooseCell(ch);
@@ -25,13 +36,13 @@ module.exports = class Predator extends LivingCreature {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (ch.includes(matrix[y][x])){// if (matrix[y][x] == ch) {
+                if (ch.includes(matrix[y][x])) {// if (matrix[y][x] == ch) {
                     found.push(this.directions[i]);
                 }
             }
         }
         return found;
-        
+
         // return super.chooseCell(ch);
 
     }
@@ -40,9 +51,13 @@ module.exports = class Predator extends LivingCreature {
         let grassesN = this.chooseCell(1)
         let grassEaterN = this.chooseCell(2)
         let all = grassesN.concat(grassEaterN)
+        // console.log("all " ,all);
+        
         let oneP = all[Math.floor(Math.random) * all.length]
+        // console.log("onep " , oneP);
+        
         if (oneP) {
-            this.countEating++;
+            this.countEating+30;
             matrix[this.y][this.x] = 0
             matrix[oneP[1]][oneP[0]] = 3
             this.y = oneP[1]
@@ -64,7 +79,7 @@ module.exports = class Predator extends LivingCreature {
                 this.mul()
             }
         }
-        else {
+        else {      
             this.move()
             if (this.countEating > 100) {
                 console.log("died")
@@ -86,6 +101,7 @@ module.exports = class Predator extends LivingCreature {
     }
 
     mul() {
+
         let newCell = random(this.chooseCell(0))
         if (newCell) {
             let newPredator = new Predator(newCell[0], newCell[1], 3)
@@ -95,19 +111,25 @@ module.exports = class Predator extends LivingCreature {
     }
 
     move() {
-        let emptyCells = this.chooseCellBarev([0, 1])
-        let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+        let e = this.chooseCellBarev([0, 1])
+        // console.log(this.x, this.y);
+        
+        let newCell = e[Math.floor(Math.random() * e.length)]
+
+        // console.log("asdasdasd ", e, newCell) ;
 
         if (newCell) {
+            console.log("jhgjh");
+            
             let newX = newCell[0]
             let newY = newCell[1]
             matrix[this.y][this.x] = 0
             matrix[newY][newX] = 3
             this.x = newX
             this.y = newY
-            for (var i in grassEaterArr) {
-                if (this.x == grassEaterArr[i].x && this.y == grassEaterArr[i].y) {
-                    grassEaterArr.splice(i, 1)
+            for (var i in grassArr) {
+                if (this.x == grassArr[i].x && this.y == grassArr[i].y) {
+                    grassArr.splice(i, 1)
                     break;
                 }
             }
@@ -115,5 +137,4 @@ module.exports = class Predator extends LivingCreature {
     }
 
 
-    }
- 
+}

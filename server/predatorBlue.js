@@ -1,7 +1,8 @@
 LivingCreature = require("./leavingcreature.js")
 module.exports = class PredatorBlue extends LivingCreature {
-getNewCoordinates() {
-        [this.x - 1, this.y - 1],
+    getNewCoordinates() {
+        this.directions = [
+            [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
             [this.x + 1, this.y - 1],
             [this.x - 1, this.y],
@@ -9,37 +10,37 @@ getNewCoordinates() {
             [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
-
-    }
+          ]
+        }
     chooseCell(ch) {
         this.getNewCoordinates();
         return super.chooseCell(ch);
-        }
+    }
 
-        chooseCellBarev(ch) {
+    chooseCellBarev(ch) {
 
-            this.getNewCoordinates();
-    
-            var found = [];
-            for (var i in this.directions) {
-                var x = this.directions[i][0];
-                var y = this.directions[i][1];
-                if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                    if (ch.includes(matrix[y][x])){
-                        found.push(this.directions[i]);
-                    }
+        this.getNewCoordinates();
+
+        var found = [];
+        for (var i in this.directions) {
+            var x = this.directions[i][0];
+            var y = this.directions[i][1];
+            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+                if (ch.includes(matrix[y][x])) {
+                    found.push(this.directions[i]);
                 }
             }
-            return found;
-            
-
-    
         }
+        return found;
+
+
+
+    }
 
 
     eat() {
         let foods = this.chooseCell(1)
-        let food = foods[Math.floor(Math.random)*foods.length]
+        let food = foods[Math.floor(Math.random) * foods.length]
         if (food) {
             this.energy++
             matrix[this.y][this.x] = 0
@@ -83,25 +84,23 @@ getNewCoordinates() {
         }
     }
 
-move() {
-    let emptyCells = this.chooseCellBarev([0,1])
-    let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+    move() {
+        let emptyCells = this.chooseCellBarev([0, 1])
+        let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
-    if (newCell) {
-        let newX = newCell[0]
-        let newY = newCell[1]
-        matrix[this.y][this.x] = 0
-        matrix[newY][newX] = 5
-        this.x = newX
-        this.y = newY
-        for (var i in predatorArr) {
-            if (this.x == predatorArr[i.x && this.y == predatorArr[i].y]) {
-                predatorArr.splice(i, 1)
-                break;
+        if (newCell) {
+            let newX = newCell[0]
+            let newY = newCell[1]
+            matrix[this.y][this.x] = 0
+            matrix[newY][newX] = 5
+            this.x = newX
+            this.y = newY
+            for (var i in grassArr) {
+                if (this.x == grassArr[i].x && this.y == grassArr[i].y) {
+                    grassArr.splice(i, 1)
+                    break;
+                }
             }
         }
     }
-}
-
-
 }

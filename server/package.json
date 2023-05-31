@@ -3,10 +3,12 @@
     "express": "^4.18.2",
     "modules": "^0.4.0",
     "node": "^20.2.0",
+    "nodemon": "^2.0.22",
     "socket.io": "^4.6.1"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "a": "nodemon server.js"
   },
   "name": "pwd",
   "version": "1.0.0",
